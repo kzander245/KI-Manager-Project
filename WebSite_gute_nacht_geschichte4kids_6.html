@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gute-Nacht-Geschichten4KIDS</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to bottom, #d0eaff, #ffffff);
+      height: 100%;
+      overflow: hidden;
+      color: #333;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+    /* Vollbild-Slideshow */
+    .slideshow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slide.active {
+      opacity: 1;
+    }
+    h1 {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 2px 2px 8px #000;
+      z-index: 2;
+    }
+    /* Themen-Auswahl */
+    .stories {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 2;
+    }
+    .story {
+      position: relative;
+      width: 140px;
+      border-radius: 10px;
+      overflow: visible; /* Allow sub-buttons to show */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background: #fff;
+      transition: transform 0.3s;
+      text-align: center;
+      cursor: pointer;
+    }
+    .story:hover {
+      transform: scale(1.05);
+    }
+    .story img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+    .story-title {
+      padding: 6px;
+      font-size: 1em;
+      background: #f4f4f4;
+    }
+    /* Sub-Buttons */
+    .sub-buttons {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 3;
+    }
+    .sub-story {
+      width: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background: #fff;
+      text-align: center;
+    }
+    .sub-story img {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+    }
+    .sub-story-title {
+      padding: 4px;
+      font-size: 0.9em;
+      background: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="main">
+    <div class="slideshow-container">
+      <div class="slide active" style="background-image: url('Coverbild_Zauberer_Kindgerecht_5.jpg');"></div>
+      <div class="slide" style="background-image: url('Coverbild_Zauberer_Kindgerecht_2.jpg');"></div>
+      <div class="slide" style="background-image: url('Coverbild_Zauberer_Kindgerecht_3.jpg');"></div>
+    </div>
+    <h1>Gute-Nacht-Geschichten4KIDS</h1>
+    <div class="stories">
+      <div class="story" data-theme="tiere">
+        <img src="Coverbild_der_Wald_und_die_Tiere_2.jpg" alt="Tiere und der Wald">
+        <div class="story-title">Tiere und der Wald</div>
+      </div>
+      <div class="story" data-theme="garten">
+        <img src="Coverbild_Familie_im_Garten_3.jpg" alt="Die Familie im Garten">
+        <div class="story-title">Die Familie im Garten</div>
+      </div>
+      <div class="story" data-theme="zoo">
+        <img src="Coverbild_Der_grosse_Zoo_4.jpg" alt="Der große Zoo">
+        <div class="story-title">Der große Zoo</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Haupt-Slideshow
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 5000);
+
+    // Platzhalter-Daten für Untergeschichten
+    const themes = {
+      tiere: [
+        { title: 'Geschichte 1', img: 'placeholder_tiere_1.jpg', link: '#' },
+        { title: 'Geschichte 2', img: 'placeholder_tiere_2.jpg', link: '#' },
+        { title: 'Geschichte 3', img: 'placeholder_tiere_3.jpg', link: '#' }
+      ],
+      garten: [
+        { title: 'Geschichte A', img: 'placeholder_garten_1.jpg', link: '#' },
+        { title: 'Geschichte B', img: 'placeholder_garten_2.jpg', link: '#' },
+        { title: 'Geschichte C', img: 'placeholder_garten_3.jpg', link: '#' }
+      ],
+      zoo: [
+        { title: 'Geschichte X', img: 'placeholder_zoo_1.jpg', link: '#' },
+        { title: 'Geschichte Y', img: 'placeholder_zoo_2.jpg', link: '#' },
+        { title: 'Geschichte Z', img: 'placeholder_zoo_3.jpg', link: '#' }
+      ]
+    };
+
+    // Klick-Event für Themen-Auswahl
+    document.querySelectorAll('.story').forEach(item => {
+      item.addEventListener('click', (e) => {
+        // Entferne vorhandene Sub-Buttons
+        document.querySelectorAll('.sub-buttons').forEach(sb => sb.remove());
+        // Erstelle neue Sub-Buttons
+        const theme = item.getAttribute('data-theme');
+        const data = themes[theme];
+        const container = document.createElement('div');
+        container.className = 'sub-buttons';
+        data.forEach(s => {
+          const div = document.createElement('div');
+          div.className = 'sub-story';
+          div.innerHTML = `
+            <a href="${s.link}">
+              <img src="${s.img}" alt="${s.title}">
+              <div class="sub-story-title">${s.title}</div>
+            </a>`;
+          container.appendChild(div);
+        });
+        item.appendChild(container);
+      });
+    });
+  </script>
+</body>
+</html>

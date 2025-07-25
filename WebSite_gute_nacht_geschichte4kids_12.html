@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gute-Nacht-Geschichten4KIDS</title>
+  <style>
+    body, html {margin:0;padding:0;font-family:'Comic Sans MS',cursive,sans-serif;height:100%;overflow:hidden;color:#333}
+    .container {position:relative;width:100%;height:100vh;background:linear-gradient(to bottom,#d0eaff,#ffffff)}
+    video#bg-video {position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1}
+    h1 {position:absolute;top:20px;width:100%;text-align:center;font-size:3em;color:#fff;text-shadow:2px 2px 8px #000;z-index:2}
+    .stories {position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:flex-end;gap:20px;z-index:2}
+    .story-wrapper {position:relative;width:160px;height:420px;overflow:visible}
+    .story {position:absolute;bottom:0;left:0;width:100%;height:140px;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.2);background:#fff;transition:transform .3s;text-align:center;cursor:pointer}
+    .story:hover {transform:scale(1.1)}
+    .story img {width:100%;height:100px;object-fit:cover;border-top-left-radius:10px;border-top-right-radius:10px}
+    .story-title {padding:6px;font-size:1em;background:#f4f4f4;border-bottom-left-radius:10px;border-bottom-right-radius:10px}
+    .sub-buttons {position:absolute;bottom:140px;left:50%;transform:translateX(-50%);display:none;flex-direction:column;align-items:center;gap:10px;z-index:3}
+    .story-wrapper:hover .sub-buttons {display:flex}
+    .sub-story {width:140px;border-radius:8px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,0.2);background:#fff;transition:transform .3s;text-align:center}
+    .sub-story:hover {transform:scale(1.1)}
+    .sub-story img {width:100%;height:80px;object-fit:cover}
+    .sub-story-title {color:#000;padding:4px;font-size:.9em;background:#f4f4f4}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Vollbild-Video, sequentiell abspielbar -->
+    <video id="bg-video" autoplay muted playsinline></video>
+
+    <h1>Gute-Nacht-Geschichten4KIDS</h1>
+    <div class="stories">
+      <!-- Themen: Tiere und der Wald -->
+      <div class="story-wrapper" data-theme="tiere">
+        <div class="story">
+          <img src="Bilder/Coverbild_der_Wald_und_die_Tiere_2.jpg" alt="Tiere und der Wald">
+          <div class="story-title">Tiere und der Wald</div>
+        </div>
+        <div class="sub-buttons">
+          <div class="sub-story"><a href="#"><img src="Bilder/Die_Tiere_und_der_Wald_7.png" alt="Luna Geschichte"><div class="sub-story-title">Luna, die kleine Eule...</div></a></div>
+          <div class="sub-story"><a href="#"><img src="Bilder/Die_Tiere_und_der_Wald_9.png" alt="Fuchs Geschichte"><div class="sub-story-title">Ferdinand, der schlaue Fuchs...</div></a></div>
+          <div class="sub-story"><a href="#"><img src="Bilder/Die_Tiere_und_der_Wald_11.png" alt="Eichhörnchen Geschichte"><div class="sub-story-title">Mila, das flinke Eichhörnchen...</div></a></div>
+        </div>
+      </div>
+      <!-- Themen: Die Familie im Garten -->
+      <div class="story-wrapper" data-theme="garten">
+        <div class="story">
+          <img src="Bilder/Coverbild_Familie_im_Garten_3.jpg" alt="Die Familie im Garten">
+          <div class="story-title">Die Familie im Garten</div>
+        </div>
+        <div class="sub-buttons">
+          <div class="sub-story"><a href="#"><img src="Bilder/placeholder_garten_1.jpg" alt="Garten 1"><div class="sub-story-title">Geschichte 2.1</div></a></div>
+          <div class="sub-story"><a href="#"><img src="Bilder/placeholder_garten_2.jpg" alt="Garten 2"><div class="sub-story-title">Geschichte 2.2</div></a></div>
+          <div class="sub-story"><a href="#"><img src="Bilder/placeholder_garten_3.jpg" alt="Garten 3"><div class="sub-story-title">Geschichte 2.3</div></a></div>
+        </div>
+      </div>
+      <!-- Themen: Der große Zoo -->
+      <div class="story-wrapper" data-theme="zoo">
+        <div class="story">
+          <img src="Bilder/Coverbild_Der_grosse_Zoo_4.jpg" alt="Der große Zoo">
+          <div class="story-title">Der große Zoo</div>
+        </div>
+        <div class="sub-buttons">
+          <div class="sub-story"><a href="#"><img src="Bilder/placeholder_zoo_1.jpg" alt="Zoo 1"><div class="sub-story-title">Geschichte 3.1</div></a></div>
+          <div class="sub-story"><a href="#"><img src="Bilder/placeholder_zoo_2.jpg" alt="Zoo 2"><div class="sub-story-title">Geschichte 3.2</div></a></div>
+          <div class="sub-story"><a href="#"><img src="Bilder/placeholder_zoo_3.jpg" alt="Zoo 3"><div class="sub-story-title">Geschichte 3.3</div></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Video-Playlist
+    const videoElement = document.getElementById('bg-video');
+    const videos = [
+      'Video/video1.mp4',
+      'Video/video2.mp4'
+    ];
+    let currentVideo = 0;
+    videoElement.src = videos[currentVideo];
+    videoElement.play();
+    videoElement.addEventListener('ended', () => {
+      currentVideo = (currentVideo + 1) % videos.length;
+      videoElement.src = videos[currentVideo];
+      videoElement.play();
+    });
+  </script>
+</body>
+</html>
